@@ -20,6 +20,13 @@ _DESCRIPTION = """\
 """
 
 _URL = "https://eventcqa.l3s.uni-hannover.de/"
+_DATA_URLS = {
+    "eventkg": "https://eventcqa.l3s.uni-hannover.de/dataset/eventkg_queries.json",
+    "dbpedia": "https://eventcqa.l3s.uni-hannover.de/dataset/dbpedia_queries.json",
+    "entities": "https://eventcqa.l3s.uni-hannover.de/dataset/entities.txt",
+    "predicates": "https://eventcqa.l3s.uni-hannover.de/dataset/predicates.txt",
+    "events": "https://eventcqa.l3s.uni-hannover.de/dataset/events.txt"
+}
 
 class EventQAConfig(datasets.BuilderConfig):
     """BuilderConfig for Event-QA"""
@@ -110,17 +117,21 @@ class EventQA(datasets.GeneratorBasedBuilder):
         )
 
     def _split_generators(self, dl_manager):
-        download_dir = dl_manager.download_and_extract(self.config.data_url)
-        data_dir = download_dir
-        if self.config.name in ["predicates", "entities", "events"]:
-            file_name = "{}.txt".format(self.config.name)
-        else:
-            file_name = "eventqa-train-multilingual-{}.json".format(self.config.name)
+        data_dir = None
+        eventqa_files = dl_manager.download_and_extract(
+            {
+                "eventkg": _DATA_URLS["eventkg"],
+                "dbpedia": _DATA_URLS["dbpedia"],
+                "entities": _DATA_URLS["entities"],
+                "predicates": _DATA_URLS["predicates"],
+                "events": _DATA_URLS["events"]
+            }
+        )
         return [
             datasets.SplitGenerator(
                 name=datasets.Split.TRAIN,
                 gen_kwargs={
-                    "data_file": os.path.join(data_dir or "", file_name),
+                    "data_file": os.path.join(data_dir or "", eventqa_files[self.config.name]),
                     "split": "train"
                 }
             )
