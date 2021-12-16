@@ -61,7 +61,7 @@ _DATA_URLS = {
 }
 
 
-class CwqConfig(datasets.BuilderConfig):
+class CwConfig(datasets.BuilderConfig):
     """BuilderConfig for CWQ splits."""
 
     def __init__(self, name, **kwargs):
