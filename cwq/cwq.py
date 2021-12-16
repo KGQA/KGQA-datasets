@@ -83,7 +83,7 @@ _QUESTION_FIELD = "questionPatternModEntities"
 _QUERY_FIELD = "sparqlPatternModEntities"
 
 
-class Cfq(datasets.GeneratorBasedBuilder):
+class CWQ(datasets.GeneratorBasedBuilder):
     """CWQ task / splits."""
 
     BUILDER_CONFIGS = [
