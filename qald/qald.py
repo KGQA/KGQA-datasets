@@ -42,7 +42,7 @@ class QALDConfig(datasets.BuilderConfig):
         self.data_url = data_url
         self.data_dir = data_dir
 
-class RuBQQuestions(datasets.GeneratorBasedBuilder):
+class QALDQuestions(datasets.GeneratorBasedBuilder):
     """QALD."""
     BUILDER_CONFIGS = [
         QALDConfig(
