@@ -45,8 +45,14 @@ class LCQuAD2(datasets.GeneratorBasedBuilder):
     """LC-QuAD 2.0: A Large Scale Complex Question Answering Dataset."""
     BUILDER_CONFIGS = [
         LCQuAD2Config(
-            name="lcquad2",
-            description="LCQuAD2",
+            name="lcquad2-wikidata",
+            description="LCQuAD2 Wikidata",
+            data_url="",
+            data_dir="LCQuAD2"
+        ),
+        LCQuAD2Config(
+            name="lcquad2-dbpedia",
+            description="LCQuAD2 DBpedia",
             data_url="",
             data_dir="LCQuAD2"
         )
@@ -67,8 +73,7 @@ class LCQuAD2(datasets.GeneratorBasedBuilder):
                     ),
                     "template_index": datasets.Value("string"),
                     "question": datasets.Value("string"),
-                    "sparql_wikidata": datasets.Value("string"),
-                    "sparql_dbpedia18": datasets.Value("string"),
+                    "sparql": datasets.Value("string"),
                     "template": datasets.Sequence(
                         datasets.Value("string")
                     ),
@@ -91,24 +96,30 @@ class LCQuAD2(datasets.GeneratorBasedBuilder):
                 "test": _LCQUAD2_URLS["test"]
             }
         )
+        if self.config.name == "lcquad2-wikidata":
+            kb = "wikidata"
+        elif self.config.name == "lcquad2-dbpedia":
+            kb = "dbpedia"
         return [
             datasets.SplitGenerator(
                 name=datasets.Split.TRAIN,
                 gen_kwargs={
                     "data_file": os.path.join(data_dir or "", lcquad2_files["train"]),
-                    "split": "train"
+                    "split": "train",
+                    "kb": kb
                 }
             ),
             datasets.SplitGenerator(
                 name=datasets.Split.TEST,
                 gen_kwargs={
                     "data_file": os.path.join(data_dir or "", lcquad2_files["test"]),
-                    "split": "test"
+                    "split": "test",
+                    "kb": kb
                 }
             )
         ]
 
-    def _generate_examples(self, data_file, **kwargs):
+    def _generate_examples(self, data_file, split, kb, **kwargs):
         with open(data_file, encoding="utf8") as f:
             lcquad2 = json.load(f)
             for idx, question in enumerate(lcquad2):
@@ -129,15 +140,17 @@ class LCQuAD2(datasets.GeneratorBasedBuilder):
                     subgraphs = question["subgraph"]
                 elif isinstance(question["subgraph"], str):
                     subgraphs.append(question["subgraph"])
-
+                if kb == "wikidata":
+                    sparql = question["sparql_wikidata"]
+                elif kb == "dbpedia":
+                    sparql = question["sparql_dbpedia18"]
                 yield idx, {
                     "NNQT_question": question["NNQT_question"],
                     "uid": str(question["uid"]),
                     "subgraph": subgraphs,
                     "template_index": str(question["template_index"]),
                     "question": question["question"],
-                    "sparql_wikidata": question["sparql_wikidata"],
-                    "sparql_dbpedia18": question["sparql_dbpedia18"],
+                    "sparql": sparql,
                     "template": templates,
                     "template_id": str(question["template_id"]),
                     "answer": question["answer"],
