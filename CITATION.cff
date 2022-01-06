@@ -1,0 +1,18 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: KGQA Datasets Portal
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Longquan
+    family-names: Jiang
+    email: longquan.jiang@uni-hamburg.de
+    affiliation: Universität Hamburg
+  - given-names: Ricardo
+    family-names: Usbeck
+    email: ricardo.usbeck@uni-hamburg.de
+    affiliation: Universität Hamburg
