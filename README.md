@@ -16,10 +16,12 @@ This repository is a collection of existing KGQA datasets in the form of the [hu
 9. LC-QuAD 2.0
 10. MetaQA
 11. PathQuestions
-12. QALD
-13. RuBQ 1.0
-14. RuBQ 2.0
-15. SimpleDBpediaQA
-16. SimpleQuestionsWikidata
-17. TimeQuestions
-18. TempQuestions
+12. QALD-9
+13. QALD-10
+14. RuBQ 1.0
+15. RuBQ 2.0
+16. SimpleDBpediaQA
+17. SimpleQuestionsWikidata
+18. TimeQuestions
+19. TempQuestions
+20. QALM
