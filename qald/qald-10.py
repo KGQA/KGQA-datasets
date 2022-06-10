@@ -103,7 +103,6 @@ class QALDQuestions(datasets.GeneratorBasedBuilder):
                 question["answers"] = json.dumps(question["answers"])
 
                 if kwargs["split"]== "test":
-                    print("asda")
                     del question["aggregation"]
 
                 yield idx, question
