@@ -1,5 +1,18 @@
 # KGQA Datasets #
 
+## Citation
+
+Please cite our paper if you use any tool or datasets provided in this repository:
+
+````
+@article{jiang2022knowledge,
+  title={Knowledge Graph Question Answering Datasets and Their Generalizability: Are They Enough for Future Research?},
+  author={Jiang, Longquan and Usbeck, Ricardo},
+  journal={arXiv preprint arXiv:2205.06573},
+  year={2022}
+}
+````
+
 ## Brief Introduction
 This repository is a collection of existing KGQA datasets in the form of the [huggingface datasets](https://github.com/huggingface/datasets) library, aiming to provide an easy-to-use access to them.
 
